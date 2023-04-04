@@ -1,7 +1,4 @@
-#pragma once
-
 #include <iostream>
-
 
 class Point2D {
 private:
@@ -30,4 +27,8 @@ public:
         out << "(" << point.x << ", " << point.y << ")";
         return out;
     }
+
+    friend class Characters1;
+    friend class Arena1;
+    
 };

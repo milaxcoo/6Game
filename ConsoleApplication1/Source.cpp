@@ -9,9 +9,10 @@
 
 using namespace std;
 
-
 int main() {
     system("chcp 65001");
+
+    string prey_name, predator_name;
 
     srand(time(NULL));
 
@@ -53,6 +54,7 @@ int main() {
     cin >> predator_name;
     
     cout << "За кого хотите играть? (0-жертва, 1-хищник)" << endl;
+    int sideChoice;
     cin >> sideChoice;
 
     bool preyNpc = true;
@@ -68,20 +70,21 @@ int main() {
     Arena arena(10, 10, &prey, &predator);
     cout << arena << endl;
 
+
     while (1) {
        
        if (sideChoice == 0) {
            if (check(prey, predator)) {
                
-               predator.MoveTo(prey.getx(), prey.gety());
+               predator.moveTo(prey.getX(), prey.getY());
                
                cout << arena;
                cout << "\n!!!!!! ХИЩНИК ПОБЕДИЛ !!!!!!" << endl;
                return 0;
            }
            else {
-               prey.AutoMove(arena, sideChoice);
-               predator.AutoMove(arena, sideChoice);
+               prey.autoMove(arena, sideChoice);
+               predator.autoMove(arena, sideChoice);
                cout << arena << endl;
            }
        }
@@ -92,12 +95,33 @@ int main() {
                return 0;
            }
            else {
-               prey.AutoMove(arena, sideChoice);
-               predator.AutoMove(arena, sideChoice);
+               prey.autoMove(arena, sideChoice);
+               predator.autoMove(arena, sideChoice);
                cout << arena << endl;
            }
        }
     }
 
+
+
     return 0;
 }
+
+bool check(Prey& prey, Predator& predator) {
+    if (prey.getx() == predator.getx() && prey.gety() == predator.gety()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool check1(Prey& prey, Predator& predator) {
+    if (prey.getx() == predator.getx() && prey.gety() == predator.gety()) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
