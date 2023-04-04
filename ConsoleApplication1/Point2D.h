@@ -1,35 +1,33 @@
+#pragma once
+
 #include <iostream>
 
-using namespace std;
 
 class Point2D {
 private:
-    /*friend class Prey;
-    friend Predator;
-    friend class Arena;
-    friend ostream& operator<<(ostream&, const Arena&);
-    friend bool check(const Prey& prey, const Predator& predator);
-    friend bool check1(const Prey& prey, const Predator& predator);*/
     int x;
     int y;
 public:
 
-    //  ÓÌÒÚÛÍÚÓ
+    // –ö–æ–Ω—Å—Ç—Ä—É–∫—Ç–æ—Ä
     Point2D(int x = 0, int y = 0) : x(x), y(y) {  }
-
-    // œÂÂ„ÛÁÍ‡ ÓÔÂ‡ÚÓ‡ ‚˚‚Ó‰‡
-    friend std::ostream& operator<<(std::ostream& out, const Point2D& point) {
-        out << "(" << point.x << ", " << point.y << ")";
-        return out;
-    }
 
     void setPoint(int x, int y) {
         this->x = x;
         this->y = y;
     }
 
+    int getX() { return x; }
+    int getY() { return y; }
+
     bool operator==(const Point2D& point) {
         if (x == point.x && y == point.y) return 1;
         else return 0;
+    }
+
+    // –ü–µ—Ä–µ–≥—Ä—É–∑–∫–∞ –æ–ø–µ—Ä–∞—Ç–æ—Ä–∞ –≤—ã–≤–æ–¥–∞
+    friend std::ostream& operator<<(std::ostream& out, const Point2D& point) {
+        out << "(" << point.x << ", " << point.y << ")";
+        return out;
     }
 };
