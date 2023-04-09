@@ -1,105 +1,92 @@
-#pragma once
-
 #include <iostream>
+#include <string>
+#include <iomanip>
+#include <fstream>
+#include <time.h>
+#include <cstdlib>
 #include "Point2D.h"
 
-class Character {
-
-private:
-
-    std::string name;        // имя персонажа
-    Point2D location;   // текущее положение персонажа
-    bool npc;           // признак NPC
-
+class Characters {
 public:
+    std::string name;
+    Point2D location;
+    bool npc;
 
-    Character(const std::string& name, const Point2D& location, bool npcFlag = 0);
-
-    void moveTo(Point2D point);
-
-    //0 - вверх 1 - вправо 2 - вниз 3 - влево 4 - вверх-влево 
-    //5 - вверх-вправо 6 - вниз-вправо 7 - вниз-влево
-    void moveTo(int direction, int steps);
-
-    Point2D getLocation();
-
-    bool isNPC();
-
-    virtual void autoMove() = 0; 
+    Characters(std::string name, Point2D location, bool npc) : name(name), location(location), npc(npc) {  }
+    virtual void autoMove() = 0;
+    void moveTo(Point2D location) {
+        this->location = location;
+    }
+    Point2D getLocation() {
+        return location;
+    }
+    Point2D setLocation(Point2D location) {
+        return this->location = location;
+    }
+    std::string getName() {
+        return name;
+    }
+    bool getNpc() {
+        return npc;
+    }
+    void setNpc(bool npc) {
+        this->npc = npc;
+    }
+    void setName(std::string name) {
+        this->name = name;
+    }
+    friend std::ostream& operator<<(std::ostream& out, const Characters& character) {
+        out << character.name << " " << character.location;
+        return out;
+    }
 };
 
-class Prey : public Character {
-
-private:
-
-    const int maxRange = 1;
-
+class Prey : public Characters {
 public:
-
-    Prey(const std::string& name, const Point2D& location, bool npcFlag = 0);
-
-    int askDirection();
-
-    void autoMove() override;
-
+    Prey(std::string name, Point2D location, bool npc) : Characters(name, location, npc) {  }
+    void autoMove() {
+        int x = location.getX();
+        int y = location.getY();
+        int direction = rand() % 4;
+        switch (direction) {
+        case 0:
+            x++;
+            break;
+        case 1:
+            x--;
+            break;
+        case 2:
+            y++;
+            break;
+        case 3:
+            y--;
+            break;
+        }
+        location.setPoint(x, y);
+    }
 };
 
-class Predator : public Character{
-private:
-
-    const int maxRange = 5;
- 
+class Predator : public Characters {
 public:
-    Predator(const std::string& name, const Point2D& location, bool npcFlag = 0) 
-        : Character(name, location, npcFlag) {   }
-
-    int askRange() {
-
-        do {
-            int range;
-            std::cout << "На сколько? (1-5) \n";
-            std::cin >> range;
-
-            if (range >= 1 && range <= maxRange) {
-                return range;     
-            }
-            else std::cout << "Некорректный ввод, попробуй ещё раз \n";
-
-        } while (true);
-    }
-
-    int askDirection() {
-        do {
-
-            int direction(0);
-            std::cout << "Куда идти?\n";
-            std::cout << "0 - вверх, 1 - вправо, 2 - вниз, 3 - влево,\n";
-            std::cin >> direction;
-
-            if (direction <= 3 && direction >= 0) {
-                return direction;
-            }
-            else std::cout << "Некорректный ввод, попробуй ещё раз \n";
-
-        } while (true);       
-
-    }
-
-    void autoMove() override {
-
-        int direction = 0;
-        int range = 0;
-
-        if (isNPC()) {
-            direction = rand() % 4;
-            range = rand() % 5 + 1;
+    Predator(std::string name, Point2D location, bool npc) : Characters(name, location, npc) {  }
+    void autoMove() {
+        int x = location.getX();
+        int y = location.getY();
+        int direction = rand() % 4;
+        switch (direction) {
+        case 0:
+            x++;
+            break;
+        case 1:
+            x--;
+            break;
+        case 2:
+            y++;
+            break;
+        case 3:
+            y--;
+            break;
         }
-        else {
-            direction = askDirection();
-            range = askRange();
-        }
-
-        moveTo(direction, range);
+        location.setPoint(x, y);
     }
-
 };

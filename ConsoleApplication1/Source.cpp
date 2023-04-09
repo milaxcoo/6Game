@@ -4,7 +4,6 @@
 #include <fstream>
 #include <time.h>
 #include <cstdlib>
-#include "Characters.h"
 #include "Arena.h"
 
 using namespace std;
@@ -19,7 +18,7 @@ int main() {
     Prey prey("prey", Point2D(5, 20), true);
     Predator predator("predator", Point2D(3, 10), true);
 
-    Arena arena(30, 30, &prey, &predator);
+    Arena arena(30, 20, &prey, &predator);
 
     cout << arena;
 
@@ -108,20 +107,10 @@ int main() {
 }
 
 bool check(Prey& prey, Predator& predator) {
-    if (prey.getx() == predator.getx() && prey.gety() == predator.gety()) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return prey.getx() == predator.getx() && prey.gety() == predator.gety();
 }
 
 bool check1(Prey& prey, Predator& predator) {
-    if (prey.getx() == predator.getx() && prey.gety() == predator.gety()) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    return prey.getx() == predator.getx() && prey.gety() == predator.gety();
 }
 

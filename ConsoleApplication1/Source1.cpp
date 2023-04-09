@@ -1,7 +1,6 @@
 #include <iostream>
-#include "Characters1.h"
 #include "Arena1.h"
-
+#include <cassert>
 
 using namespace std;
 
@@ -12,7 +11,7 @@ int main() {
 
     srand(time(NULL));
 
-    Characters prey("prey", Point2D(5, 20), true);
+    Characters prey("prey", Point2D(5, 20), false); 
     Characters predator("predator", Point2D(3, 10), true);
 
     Characters* characters[2] = { &prey, &predator };
@@ -30,6 +29,12 @@ int main() {
         prey.autoMove();
         predator.autoMove();
 
+        //unit test
+        assert(prey.getLocation().getX() >= 0 && prey.getLocation().getX() <= 30);
+        assert(prey.getLocation().getY() >= 0 && prey.getLocation().getY() <= 30);
+        assert(predator.getLocation().getX() >= 0 && predator.getLocation().getX() <= 30);
+        assert(predator.getLocation().getY() >= 0 && predator.getLocation().getY() <= 30);
+
         if (arena.checkOverRun())
         {
             prey.moveTo(prevPreyLocation);
@@ -41,6 +46,8 @@ int main() {
         system("timeout /t 1");
 
         system("cls");
+
+        
     }
 
     cout << "Enter a name for your prey: ";

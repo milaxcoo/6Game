@@ -18,8 +18,7 @@ public:
     int getY() { return y; }
 
     bool operator==(const Point2D& point) {
-        if (x == point.x && y == point.y) return 1;
-        else return 0;
+        return x == point.x && y == point.y;
     }
 
     // Перегрузка оператора вывода
@@ -28,7 +27,10 @@ public:
         return out;
     }
 
-    friend class Characters1;
     friend class Arena1;
+    friend class Characters1;
+    friend class Prey;
+    friend class Predator;
+  
     
 };
