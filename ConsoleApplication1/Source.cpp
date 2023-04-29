@@ -114,3 +114,23 @@ bool check1(Prey& prey, Predator& predator) {
     return prey.getx() == predator.getx() && prey.gety() == predator.gety();
 }
 
+//google test
+TEST(Characters, getName) {
+    Prey prey("prey", Point2D(5, 20), true);
+    EXPECT_EQ(prey.getName(), "prey");
+}
+
+TEST(Characters, getx) {
+    Prey prey("prey", Point2D(5, 20), true);
+    EXPECT_EQ(prey.getx(), 5);
+}
+
+TEST(Characters, gety) {
+    Prey prey("prey", Point2D(5, 20), true);
+    EXPECT_EQ(prey.gety(), 20);
+}
+
+TEST(Characters, getNpc) {
+    Prey prey("prey", Point2D(5, 20), true);
+    EXPECT_EQ(prey.getNpc(), true);
+}

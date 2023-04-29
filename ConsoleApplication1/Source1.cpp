@@ -74,3 +74,17 @@ int main() {
     }
 
 }
+
+//google test
+TEST(Characters, move) {
+    Characters prey("prey", Point2D(5, 20), false);
+    Characters predator("predator", Point2D(3, 10), true);
+
+    prey.autoMove();
+    predator.autoMove();
+
+    assert(prey.getLocation().getX() >= 0 && prey.getLocation().getX() <= 30);
+    assert(prey.getLocation().getY() >= 0 && prey.getLocation().getY() <= 30);
+    assert(predator.getLocation().getX() >= 0 && predator.getLocation().getX() <= 30);
+    assert(predator.getLocation().getY() >= 0 && predator.getLocation().getY() <= 30);
+}
