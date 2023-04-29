@@ -6,6 +6,9 @@
 #include <cstdlib>
 #include "Point2D.h"
 
+//google test
+#include "gtest/gtest.h"
+
 class Characters {
 public:
     std::string name;
@@ -90,3 +93,44 @@ public:
         location.setPoint(x, y);
     }
 };
+
+TEST(Characters, Prey) {
+    Point2D location(0, 0);
+    Prey prey("Prey", location, false);
+    EXPECT_EQ(prey.getName(), "Prey");
+    EXPECT_EQ(prey.getLocation(), location);
+    EXPECT_EQ(prey.getNpc(), false);
+    prey.setName("Prey2");
+    EXPECT_EQ(prey.getName(), "Prey2");
+    prey.setLocation(Point2D(1, 1));
+    EXPECT_EQ(prey.getLocation(), Point2D(1, 1));
+    prey.setNpc(true);
+    EXPECT_EQ(prey.getNpc(), true);
+    prey.moveTo(Point2D(2, 2));
+    EXPECT_EQ(prey.getLocation(), Point2D(2, 2));
+    prey.autoMove();
+    EXPECT_EQ(prey.getLocation(), Point2D(2, 2));
+}
+
+TEST(Characters, Predator) {
+    Point2D location(0, 0);
+    Predator predator("Predator", location, false);
+    EXPECT_EQ(predator.getName(), "Predator");
+    EXPECT_EQ(predator.getLocation(), location);
+    EXPECT_EQ(predator.getNpc(), false);
+    predator.setName("Predator2");
+    EXPECT_EQ(predator.getName(), "Predator2");
+    predator.setLocation(Point2D(1, 1));
+    EXPECT_EQ(predator.getLocation(), Point2D(1, 1));
+    predator.setNpc(true);
+    EXPECT_EQ(predator.getNpc(), true);
+    predator.moveTo(Point2D(2, 2));
+    EXPECT_EQ(predator.getLocation(), Point2D(2, 2));
+    predator.autoMove();
+    EXPECT_EQ(predator.getLocation(), Point2D(2, 2));
+}
+
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
